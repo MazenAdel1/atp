@@ -2,6 +2,7 @@
 
 import CoachCard, { CoachType } from "../CoachCard";
 import { motion } from "motion/react";
+import SectionTitle from "../SectionTitle";
 
 export default function Coaches() {
   const COACHES: CoachType[] = [
@@ -16,7 +17,7 @@ export default function Coaches() {
       id="coaches"
       className="section bg-gradient-to-b from-dark-navy to-black text-white"
     >
-      <h2 className="title">المدربين</h2>
+      <SectionTitle title="المدربين" />
 
       <motion.div
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 w-full"

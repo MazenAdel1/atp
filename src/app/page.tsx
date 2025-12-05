@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import Landing from "@/components/sections/Landing";
 import Membership from "@/components/sections/Membership";
 import Partners from "@/components/sections/Partners";
@@ -9,13 +8,10 @@ import Address from "@/components/sections/Address";
 export default function Home() {
   return (
     <>
-      <section className="min-h-dvh flex flex-col">
-        <Header />
-        <Landing />
-      </section>
+      <Landing />
 
-      <section className="flex flex-col gap-52 justify-center pb-10">
-        <Membership />
+      <section className="flex flex-col gap-28 justify-center pb-10">
+        <Membership limit={4} />
         <Partners />
         <Content />
         <Coaches />

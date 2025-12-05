@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Readex_Pro } from "next/font/google";
 import "./globals.css";
-
-import { ReactLenis } from "@/utils/lenis";
+import Header from "@/components/Header";
 
 const readexPro = Readex_Pro({
   variable: "--font-readex-pro",
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
   description: "أفضل جيم في دمنهور",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -25,13 +24,12 @@ export default function RootLayout({
       dir="rtl"
       className="scroll-smooth scrollbar-thumb-yellow/70 scrollbar-track-transparent scrollbar-thin **:scrollbar-thin"
     >
-      <ReactLenis root>
-        <body
-          className={`${readexPro.variable} antialiased font-readex-pro bg-black text-white overflow-x-hidden`}
-        >
-          {children}
-        </body>
-      </ReactLenis>
+      <body
+        className={`${readexPro.variable} antialiased font-readex-pro bg-black text-white overflow-x-hidden`}
+      >
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

@@ -7,6 +7,7 @@
   --color-yellow: #ffff19;
   --color-orange: #fac638;
   --animate-scroll: scroll 15s linear infinite;
+  --drop-shadow-back: 0 0 10px var(--tw-drop-shadow-color, rgb(0 0 0 / 0.15));
 
   @keyframes scroll {
     to {
@@ -33,7 +34,7 @@ button {
 }
 
 .section {
-  @apply container flex flex-col gap-16 items-center relative;
+  @apply container flex flex-col gap-16 items-center relative py-20;
 }
 
 .title {

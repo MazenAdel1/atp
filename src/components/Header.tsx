@@ -1,6 +1,5 @@
 "use client";
 
-import { Globe } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -62,17 +61,19 @@ export default function Header() {
       <div ref={headerBackUpRef} className="hidden h-[76px] w-full" />
       <header
         ref={headerRef}
-        className="py-3 border-b border-white/15 bg-black transition-all ease-out -top-full"
+        className="py-3 border-b border-white/15 bg-black transition-all ease-out -top-full h-[76px] flex items-center"
       >
-        <div className="flex items-center justify-between container">
-          <Image
-            src={"/imgs/logo/atp-gym-logo-no-bg.png"}
-            width={500}
-            height={500}
-            alt="atp gym logo"
-            className="w-22"
-          />
-          <ul className="flex items-center gap-3">
+        <div className="flex items-center justify-between gap-10 container relative">
+          <Link href="/" className="absolute ">
+            <Image
+              src={"/imgs/logo/atp-gym-logo-no-bg.png"}
+              width={500}
+              height={500}
+              alt="atp gym logo"
+              className="w-22"
+            />
+          </Link>
+          <ul className="flex items-center gap-5 flex-1 justify-center">
             {LIST.map((item) => (
               <li key={item.href}>
                 <Link
@@ -88,10 +89,6 @@ export default function Header() {
               </li>
             ))}
           </ul>
-          <button className="flex items-center gap-2">
-            عربي
-            <Globe className="self-end" size={18} />
-          </button>
         </div>
       </header>
     </>

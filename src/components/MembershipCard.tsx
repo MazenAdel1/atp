@@ -1,127 +1,106 @@
 "use client";
 
-import { ArrowLeft, BadgeDollarSign } from "lucide-react";
+import { useState } from "react";
+import { motion } from "motion/react";
+import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
-import { useRef } from "react";
+import Link from "next/link";
 
-export type MembershipType = {
-  label: string;
-  img: string;
-  info: {
-    gender: "MALE" | "FEMALE";
-    days: string[];
-    time: {
-      from: string;
-      to: string;
-    }[];
-    plan: { amount: number; price: number }[];
-  }[];
-};
+interface FlipCardProps {
+  frontImage: string;
+  sportName: string;
+  description: string;
+  planCount: number;
+  onViewPlans: () => void;
+}
 
-export default function MembershipCard({
-  membership,
-}: {
-  membership: MembershipType;
-}) {
-  const cardRef = useRef<HTMLDivElement>(null);
+export default function FlipCard({
+  frontImage,
+  sportName,
+  description,
+  planCount,
+  onViewPlans,
+}: FlipCardProps) {
+  const [isFlipped, setIsFlipped] = useState(false);
 
-  const flipCard = () => {
-    cardRef.current?.classList.toggle("rotate-y-180");
+  const handleCardClick = () => {
+    setIsFlipped(!isFlipped);
+  };
+
+  const handleViewPlans = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onViewPlans();
   };
 
   return (
-    <div
-      key={membership.label}
-      className="perspective-midrange w-full aspect-[3/4] cursor-pointer"
-      onClick={flipCard}
-    >
-      <div
-        ref={cardRef}
-        className="relative transition-transform ease-out transform-3d size-full"
+    <div className="h-[500px] w-full">
+      <motion.div
+        className="relative size-full cursor-pointer transform-3d"
+        animate={{ rotateY: isFlipped ? -180 : 0 }}
+        transition={{ duration: 0.3, type: "spring", stiffness: 70 }}
+        onClick={handleCardClick}
       >
-        {/* front */}
-        <div className="absolute inset-0 backface-hidden flex flex-col items-center gap-4">
-          <Image
-            src={`/imgs/sports/${membership.img}`}
-            alt={membership.label}
-            width={300}
-            height={300}
-            className="w-full h-[calc(92%-1rem)] object-cover rounded-md"
-          />
-          <h3 className="text-xl h-[8%] font-semibold tracking-[0.7rem] flex justify-center items-center bg-yellow w-full text-black rounded-md">
-            {membership.label}
-          </h3>
-        </div>
-        {/* back */}
-        <div className="absolute inset-0 backface-hidden rotate-y-180 bg-black size-full rounded-md flex flex-col gap-3 shadow-xl">
-          <div className="flex flex-col gap-3 size-full overflow-y-auto">
-            {membership.info.map((info, index) => (
-              <div
-                key={index}
-                className="bg-[#1a1a1a] rounded-lg p-3 border border-yellow/20 flex flex-col gap-3"
-              >
-                <h4
-                  className={`text-base font-semibold text-center rounded-md py-1.5 ${
-                    info.gender === "MALE"
-                      ? "text-blue-900 bg-blue-200"
-                      : "text-pink-900 bg-pink-200"
-                  }`}
-                >
-                  {info.gender === "MALE" ? "رجال" : "نساء"}
-                </h4>
-
-                <div className="bg-black/40 rounded-md py-2">
-                  <div className="flex items-center flex-wrap gap-2">
-                    {info.plan.map((plan, planIndex) => (
-                      <div
-                        key={planIndex}
-                        className="flex items-center gap-1.5 text-sm flex-1 justify-center min-w-[calc(50%-0.25rem)] rounded-md py-1.5 bg-yellow/10 border border-yellow/30 flex-wrap"
-                      >
-                        <span className="text-white font-medium">
-                          {plan.amount} تمرينة
-                        </span>
-                        <BadgeDollarSign className="text-yellow w-4 h-4" />
-                        <span className="text-yellow font-semibold">
-                          {plan.price} جنيه
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="flex flex-col gap-2">
-                  <div className="flex items-center gap-1.5">
-                    {info.days.map((day, dayIndex) => (
-                      <div
-                        key={dayIndex}
-                        className="text-center flex-1 border border-yellow/40 rounded-md py-1 text-yellow/90 text-sm font-medium bg-yellow/5"
-                      >
-                        {day}
-                      </div>
-                    ))}
-                  </div>
-                  <div className="w-full flex flex-col gap-1.5 bg-black/40 rounded-md py-2">
-                    {info.time.map((slot, slotIndex) => (
-                      <div key={slotIndex} className="flex gap-2 items-center">
-                        <div className="bg-yellow text-black px-2 py-1 rounded-md flex-1 text-center font-semibold text-sm">
-                          {slot.from}
-                        </div>
-                        <ArrowLeft className="text-yellow" width={20} />
-                        <div className="bg-white text-black px-2 py-1 rounded-md flex-1 text-center font-semibold text-sm">
-                          {slot.to}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+        {/* Front */}
+        <div className="absolute backface-hidden size-full rounded-lg overflow-hidden group">
+          <div className="relative size-full">
+            <Image
+              alt={sportName}
+              className="absolute inset-0 size-full object-cover transition-transform duration-500 group-hover:scale-110"
+              src={`/imgs/sports/${frontImage}`}
+              width={500}
+              height={500}
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 text-right">
+              <div className="bg-yellow px-6 py-3 rounded-sm inline-block mb-3">
+                <p className="font-medium text-[24px] text-black text-center tracking-[1px] uppercase">
+                  {sportName}
+                </p>
               </div>
-            ))}
+              <p className="text-white/60 text-[14px]">اضغط لمعرفة المزيد</p>
+            </div>
           </div>
-          <h3 className="text-center font-bold text-lg bg-yellow text-black py-1 px-3 rounded-md tracking-[0.7rem]">
-            {membership.label}
-          </h3>
         </div>
-      </div>
+
+        {/* Back */}
+        <div className="absolute backface-hidden size-full rounded-lg overflow-hidden -rotate-y-180">
+          <div className="relative size-full bg-gradient-to-br from-[#1a1a1a] to-[#0a0a0a] 2xl:p-8 p-5 flex flex-col justify-between border border-[#ffff19]/20 text-right">
+            <div>
+              <div className="bg-yellow px-4 py-2 rounded-sm inline-block mb-6">
+                <p className="text-[16px] text-black tracking-[4px] uppercase">
+                  {sportName}
+                </p>
+              </div>
+
+              <p className="text-[18px] text-white/90 mb-6 leading-relaxed">
+                {description}
+              </p>
+
+              <div className="bg-white/5 border border-white/10 rounded-md p-4 mb-6">
+                <p className="text-[14px] text-white/60 mb-1">
+                  الباقات المتاحة
+                </p>
+                <p className="text-[28px] text-[#ffff19]">{planCount} باقات</p>
+              </div>
+            </div>
+
+            <div>
+              <Link
+                href={`/membership/${sportName}`}
+                onClick={handleViewPlans}
+                className="w-full bg-yellow hover:bg-orange transition-all py-4 rounded-sm text-xl text-black flex items-center justify-center gap-3 group mb-4"
+              >
+                <span>عرض جميع الباقات</span>
+                <ArrowLeft className="size-5 group-hover:-translate-x-[4px] transition-transform" />
+              </Link>
+
+              <p className="text-white/40 text-[12px] text-center">
+                اضغط للعودة
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 }
