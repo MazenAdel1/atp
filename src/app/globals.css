@@ -6,6 +6,7 @@
   --color-black: #111111;
   --color-yellow: #ffff19;
   --color-orange: #fac638;
+  --color-gray: #1a1a1a;
   --animate-scroll: scroll 15s linear infinite;
   --drop-shadow-back: 0 0 10px var(--tw-drop-shadow-color, rgb(0 0 0 / 0.15));
 

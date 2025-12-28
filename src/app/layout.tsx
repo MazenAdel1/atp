@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Readex_Pro } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
+import QueryProvider from "@/lib/QueryProvider";
 
 const readexPro = Readex_Pro({
   variable: "--font-readex-pro",
@@ -27,8 +27,7 @@ export default async function RootLayout({
       <body
         className={`${readexPro.variable} antialiased font-readex-pro bg-black text-white overflow-x-hidden`}
       >
-        <Header />
-        {children}
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
