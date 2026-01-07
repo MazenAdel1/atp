@@ -16,10 +16,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (formData: FormData) => {
-      const { data } = await api.patch(
-        `/memberships/${membership.id}`,
-        formData
-      );
+      const { data } = await api.patch(`/package/${membership.id}`, formData);
 
       return data.data;
     },
@@ -35,7 +32,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
       triggerClassName="bg-blue-500/25 border-blue-500/35 text-blue-400 hover:bg-blue-500/35 transition"
       content={(setIsOpen) => (
         <div>
-          <h2 className="text-xl mb-4 text-center">تعديل الاشتراك</h2>
+          <h2 className="mb-4 text-center text-xl">تعديل الاشتراك</h2>
           <form
             className="flex flex-col gap-4"
             onSubmit={async (e) => {
@@ -56,7 +53,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
                 name="name"
                 placeholder="اسم الاشتراك"
                 defaultValue={membership.name}
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
                 autoFocus
               />
@@ -72,7 +69,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
                 rows={3}
                 placeholder="وصف الاشتراك"
                 defaultValue={membership.description}
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
               />
             </div>
@@ -89,7 +86,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
                 defaultValue={membership.price}
                 min={0}
                 step={0.01}
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
               />
             </div>
@@ -105,7 +102,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
                 placeholder="عدد الحصص"
                 defaultValue={membership.sessions_count}
                 min={1}
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
               />
             </div>
@@ -118,12 +115,12 @@ export default function EditModal({ membership }: MembershipModalProps) {
                 id="gender"
                 name="gender"
                 defaultValue={membership.gender}
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
               >
                 <option value="">اختر الجنس</option>
-                <option value="male">ذكر</option>
-                <option value="female">أنثى</option>
+                <option value="male">رجال</option>
+                <option value="female">نساء</option>
               </select>
             </div>
 
@@ -135,7 +132,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
                 id="game_id"
                 name="game_id"
                 defaultValue={membership.game_id}
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
               >
                 <option value="">اختر الرياضة</option>
@@ -149,7 +146,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
 
             <button
               type="submit"
-              className="bg-yellow text-black p-2 rounded-md mt-2 hover:bg-orange transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-yellow hover:bg-orange mt-2 rounded-md p-2 text-black transition disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isPending}
             >
               حفظ التعديل

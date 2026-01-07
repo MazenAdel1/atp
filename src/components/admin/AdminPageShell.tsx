@@ -21,7 +21,7 @@ export default function AdminPageShell({
       <section
         className={cn(
           "grid grid-cols-1 py-5 md:grid-cols-2",
-          wideGrid ? "gap-6" : "gap-6 lg:grid-cols-3",
+          wideGrid ? "gap-6 md:grid-cols-1" : "gap-6 lg:grid-cols-3",
         )}
       >
         {children}

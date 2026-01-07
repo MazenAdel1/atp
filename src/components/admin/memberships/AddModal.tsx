@@ -4,7 +4,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import { SportProps } from "@/lib/types";
 
-export default function AddModal() {
+export default function AddModal({ sportId }: { sportId: number }) {
   const queryClient = useQueryClient();
 
   const { data: sports } = useQuery({
@@ -17,7 +17,7 @@ export default function AddModal() {
 
   const { mutateAsync, isPending } = useMutation({
     mutationFn: async (formData: FormData) => {
-      const { data } = await api.post(`/membership`, formData);
+      const { data } = await api.post(`/package`, formData);
       return data.data;
     },
 
@@ -35,7 +35,7 @@ export default function AddModal() {
       }
       content={(setIsOpen) => (
         <div>
-          <h2 className="text-xl mb-4 text-center">إضافة اشتراك جديد</h2>
+          <h2 className="mb-4 text-center text-xl">إضافة اشتراك جديد</h2>
           <form
             className="flex flex-col gap-4"
             onSubmit={async (e) => {
@@ -55,7 +55,7 @@ export default function AddModal() {
                 id="name"
                 name="name"
                 placeholder="اسم الاشتراك"
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
                 autoFocus
               />
@@ -71,7 +71,7 @@ export default function AddModal() {
                 rows={3}
                 placeholder="وصف الاشتراك"
                 required
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
               />
             </div>
 
@@ -86,7 +86,7 @@ export default function AddModal() {
                 placeholder="السعر"
                 min={0}
                 step={0.01}
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
               />
             </div>
@@ -101,7 +101,7 @@ export default function AddModal() {
                 name="sessions_count"
                 placeholder="عدد الحصص"
                 min={1}
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
               />
             </div>
@@ -113,12 +113,12 @@ export default function AddModal() {
               <select
                 id="gender"
                 name="gender"
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
               >
                 <option value="">اختر الجنس</option>
-                <option value="male">ذكر</option>
-                <option value="female">أنثى</option>
+                <option value="male">رجال</option>
+                <option value="female">نساء</option>
               </select>
             </div>
 
@@ -129,8 +129,10 @@ export default function AddModal() {
               <select
                 id="game_id"
                 name="game_id"
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
+                value={sportId}
+                onChange={() => {}}
               >
                 <option value="">اختر الرياضة</option>
                 {sports?.map((sport) => (
@@ -143,7 +145,7 @@ export default function AddModal() {
 
             <button
               type="submit"
-              className="bg-yellow text-black p-2 rounded-md mt-2 hover:bg-orange transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-yellow hover:bg-orange mt-2 rounded-md p-2 text-black transition disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isPending}
             >
               حفظ
