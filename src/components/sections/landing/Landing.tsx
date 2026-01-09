@@ -1,18 +1,19 @@
 import LightningBoltAnimated from "./LightningBoltAnimated";
-import { BottomLeftLandingGlow, TopRightLandingGlow } from "../../layout/Glow";
+import { BottomLeftGlow, TopRightGlow } from "../../layout/Glow";
+import Link from "next/link";
 
 export default function Landing() {
   return (
-    <section className="section justify-center text-center flex-1 h-[calc(100dvh-76px)]">
-      <TopRightLandingGlow />
-      <BottomLeftLandingGlow />
+    <section className="section h-[calc(100dvh-76px)] flex-1 justify-center text-center">
+      <TopRightGlow />
+      <BottomLeftGlow />
       <div className="flex flex-col gap-5">
         <h1 className="text-7xl font-black">
           أطلق العنان{" "}
           <span className="text-yellow drop-shadow-yellow drop-shadow-back">
             لطاقتك
           </span>{" "}
-          <span className="inline-block align-middle -mr-3">
+          <span className="-mr-3 inline-block align-middle">
             <LightningBoltAnimated />
           </span>
         </h1>
@@ -21,9 +22,12 @@ export default function Landing() {
           نحو قمة التميز البدني.
         </p>
       </div>
-      <button className="bg-yellow text-black py-2 min-w-40 font-medium hover:bg-transparent hover:text-yellow hover:ring hover:ring-yellow transition">
+      <Link
+        href={"/#membership"}
+        className="bg-yellow hover:text-yellow hover:ring-yellow min-w-40 py-2 font-medium text-black transition hover:bg-transparent hover:ring"
+      >
         انضم الآن
-      </button>
+      </Link>
     </section>
   );
 }

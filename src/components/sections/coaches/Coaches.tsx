@@ -1,26 +1,22 @@
-"use client";
-
-import CoachCard, { CoachType } from "../coaches/CoachCard";
-import { motion } from "motion/react";
+import CoachCard from "../coaches/CoachCard";
+import * as motion from "motion/react-client";
 import SectionTitle from "../SectionTitle";
+import api from "@/lib/axios";
+import { CoachProps } from "@/lib/types";
+import { BottomGlow } from "@/components/layout/Glow";
 
-export default function Coaches() {
-  const COACHES: CoachType[] = [
-    { img: "gym-01.jpg", name: "مجدي السيد", title: "جيم" },
-    { img: "gym-02.jpg", name: "محمد مراد", title: "جيم" },
-    { img: "jiu-jitsu-01.jpg", name: "أيمن علي", title: "جيوجيتسو" },
-    { img: "calisthenics-01.jpg", name: "محمد أحمد", title: "كاليسثينكس" },
-  ];
+export default async function Coaches() {
+  const { data: coaches }: { data: CoachProps[] } = await (
+    await api.get("/coach")
+  ).data;
 
   return (
-    <motion.section
-      id="coaches"
-      className="section bg-linear-to-b from-dark-navy to-black text-white"
-    >
+    <motion.section id="coaches" className="section text-white">
+      <BottomGlow />
       <SectionTitle title="المدربين" />
 
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 w-full"
+        className="grid w-full grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
@@ -33,7 +29,7 @@ export default function Coaches() {
           },
         }}
       >
-        {COACHES.map((coach, index) => (
+        {coaches.map((coach, index) => (
           <motion.div
             key={index}
             variants={{

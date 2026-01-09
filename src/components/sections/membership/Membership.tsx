@@ -1,38 +1,42 @@
-"use client";
-
-import { useState } from "react";
 import MembershipCard from "./MembershipCard";
 import SectionTitle from "../SectionTitle";
 import Link from "next/link";
-import { MEMBERSHIP } from "@/lib/mockData";
+import api from "@/lib/axios";
+import { MembershipProps } from "@/lib/types";
 
-export default function Membership({ limit }: { limit?: number }) {
-  const [selectedSport, setSelectedSport] = useState<number | null>(null);
+export default async function Membership({ limit }: { limit?: number }) {
+  const { data: memberships }: { data: MembershipProps[] } = (
+    await api.get("/game")
+  ).data;
 
   return (
     <section id="membership" className="section">
       <SectionTitle title="الاشتراك" subTitle="اضغط لمعرفة المزيد" />
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10 w-full">
-        {Array.from({ length: limit ?? MEMBERSHIP.length })
-          .fill(null)
-          .map((_, index) => (
+      <div className="grid w-full grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {memberships?.map((membership, index) =>
+          limit && limit > 0 ? (
+            index < limit && (
+              <MembershipCard
+                key={membership.id}
+                image={membership.image}
+                sportName={membership.name}
+                href={membership.id}
+              />
+            )
+          ) : (
             <MembershipCard
-              key={MEMBERSHIP[index].label}
-              description={MEMBERSHIP[index].description}
-              frontImage={MEMBERSHIP[index].image}
-              onViewPlans={() => setSelectedSport(index)}
-              planCount={
-                MEMBERSHIP[index].info[0].plan.length +
-                MEMBERSHIP[index].info[1].plan.length
-              }
-              sportName={MEMBERSHIP[index].label}
+              key={membership.id}
+              image={membership.image}
+              sportName={membership.name}
+              href={membership.id}
             />
-          ))}
+          ),
+        )}
       </div>
       {limit && (
         <Link
           href="/membership"
-          className="hover:bg-yellow bg-transparent border border-yellow transition py-2 px-5 text-white hover:text-black font-medium text-xl"
+          className="hover:bg-yellow border-yellow border bg-transparent px-5 py-2 text-xl font-medium text-white transition hover:text-black"
         >
           رؤية المزيد
         </Link>

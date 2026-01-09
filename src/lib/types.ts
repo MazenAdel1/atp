@@ -24,8 +24,7 @@ export type CoachProps = {
   id: number;
   image: string;
   name: string;
-  title: string;
-  game_name?: SportProps[];
+  game?: SportProps[];
 };
 
 export type CoachModalProps = {

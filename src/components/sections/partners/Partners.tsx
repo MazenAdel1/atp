@@ -1,45 +1,38 @@
 import Image from "next/image";
 import Link from "next/link";
-import { TopPartnersGlow } from "../../layout/Glow";
+import { TopGlow } from "../../layout/Glow";
 import SectionTitle from "../SectionTitle";
+import api from "@/lib/axios";
+import { PartnerProps } from "@/lib/types";
 
-export default function Partners() {
-  const IMGS = [
-    {
-      src: "opkley.jpg",
-      alt: "opkley",
-      about: "شركة opkley للتسويق والدعاية",
-      href: "https://www.facebook.com/profile.php?id=61572265763712",
-    },
-    {
-      src: "shalaby-labs.jpg",
-      alt: "shalaby labs",
-      about: "معامل شلبي للتحاليل الطبية",
-      href: "https://www.facebook.com/ShalabyLabs",
-    },
-  ];
+export default async function Partners() {
+  const { data: partners }: { data: PartnerProps[] } = await (
+    await api.get("/partner")
+  ).data;
 
   return (
     <section id="partners" className="section">
-      <TopPartnersGlow />
+      <TopGlow />
       <SectionTitle title="شركاءنا" />
       <div className="max-w-full overflow-hidden">
-        <ul className="flex items-center gap-10 h-64">
-          {IMGS.map((img, index) => {
+        <ul className="flex h-64 items-center gap-10">
+          {partners.map((partner, index) => {
             return (
               <li
                 key={index}
-                className="flex-1 h-full overflow-hidden shrink-0 w-96 group relative"
+                className="group relative h-full w-96 flex-1 shrink-0 overflow-hidden"
               >
                 <Link
-                  href={img.href}
-                  className="bg-yellow/25 backdrop-blur-md text-yellow justify-center items-center flex size-full opacity-0 group-hover:opacity-100 transition-opacity absolute text-xl font-medium"
+                  href={partner.links[0]}
+                  className="bg-yellow/25 text-yellow absolute flex size-full items-center justify-center text-xl font-medium opacity-0 backdrop-blur-lg transition-opacity group-hover:opacity-100"
                 >
-                  <p>{img.about}</p>
+                  <p className="drop-shadow-back drop-shadow-black">
+                    {partner.description}
+                  </p>
                 </Link>
                 <Image
-                  src={`/imgs/partners/${img.src}`}
-                  alt={img.alt}
+                  src={partner.image}
+                  alt={partner.name}
                   width={500}
                   height={500}
                   className="size-full object-cover"

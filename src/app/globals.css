@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@plugin 'tailwind-scrollbar';
+@plugin "tailwind-scrollbar";
 
 @theme {
   --font-readex-pro: var(--font-readex-pro);
@@ -35,9 +35,9 @@ button {
 }
 
 .section {
-  @apply container flex flex-col gap-16 items-center relative py-20;
+  @apply relative container flex flex-col items-center gap-16 py-20;
 }
 
 .title {
-  @apply text-4xl font-semibold text-center text-yellow;
+  @apply text-yellow text-center text-4xl font-semibold;
 }

@@ -1,27 +1,21 @@
-import { motion } from "motion/react";
+import { CoachProps } from "@/lib/types";
+import * as motion from "motion/react-client";
 
-export type CoachType = {
-  img: string;
-  name: string;
-  title: string;
-};
-
-export default function CoachCard({ img, name, title }: CoachType) {
+export default function CoachCard({ image, name, game }: CoachProps) {
   return (
-    <motion.div className="relative overflow-hidden shadow-lg aspect-3/4 cursor-pointer group">
-      {/* Background Image */}
+    <motion.div className="group relative aspect-3/4 overflow-hidden shadow-lg">
       <div
         className="absolute inset-0 bg-cover bg-center transition-all duration-300 group-hover:scale-105"
-        style={{ backgroundImage: `url(/imgs/coaches/${img})` }}
+        style={{ backgroundImage: `url(${image})` }}
       />
 
-      {/* Dark Gradient Overlay */}
-      <div className="absolute w-full bg-linear-to-t from-black via-black/10 to-transparent h-1/2 bottom-0" />
+      <div className="absolute bottom-0 h-1/2 w-full bg-linear-to-t from-black via-black/10 to-transparent" />
 
-      {/* Text Content */}
-      <div className="absolute bottom-0 p-5 backdrop-blur-md bg-black/5 w-full text-center">
-        <h3 className="text-2xl font-bold text-yellow">{name}</h3>
-        <p className="text-white/80 text-lg">{title}</p>
+      <div className="absolute bottom-0 w-full bg-black/5 p-5 text-center backdrop-blur-md">
+        <h3 className="text-yellow text-2xl font-bold">{name}</h3>
+        <p className="text-lg text-white/80">
+          {game?.map((g) => g.name).join(" - ")}
+        </p>
       </div>
     </motion.div>
   );

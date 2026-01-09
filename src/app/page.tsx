@@ -5,6 +5,7 @@ import Content from "@/components/sections/content/Content";
 import Coaches from "@/components/sections/coaches/Coaches";
 import Address from "@/components/sections/address/Address";
 import Header from "@/components/layout/Header";
+import Footer from "@/components/sections/footer/Footer";
 
 export default function Home() {
   return (
@@ -12,13 +13,15 @@ export default function Home() {
       <Header />
       <Landing />
 
-      <section className="flex flex-col gap-28 justify-center pb-10">
+      <section className="flex flex-col justify-center gap-28 pb-10">
         <Membership limit={4} />
         <Partners />
         <Content />
         <Coaches />
         <Address />
       </section>
+
+      <Footer />
     </>
   );
 }

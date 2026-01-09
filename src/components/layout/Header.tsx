@@ -1,25 +1,18 @@
 "use client";
 
+import { LINKS_LIST } from "@/lib/consts";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
 export default function Header() {
-  const LIST = [
-    { href: "/#membership", label: "الاشتراك" },
-    { href: "/#partners", label: "شركاءنا" },
-    { href: "/#content", label: "المحتوى" },
-    { href: "/#coaches", label: "المدربين" },
-    { href: "/#address", label: "العنوان" },
-  ];
-
   const headerRef = useRef<HTMLDivElement>(null);
   const headerBackUpRef = useRef<HTMLDivElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const headerStyles = [
-      "backdrop-blur-md",
+      "backdrop-blur-lg",
       "bg-yellow/20",
       "rounded-full",
       "border-none",
@@ -61,10 +54,10 @@ export default function Header() {
       <div ref={headerBackUpRef} className="hidden h-19 w-full" />
       <header
         ref={headerRef}
-        className="py-3 border-b border-white/15 bg-black transition-all ease-out -top-full h-19 flex items-center"
+        className="-top-full flex h-19 items-center border-b border-white/15 bg-black py-3 transition-all ease-out"
       >
-        <div className="flex items-center justify-between gap-10 container relative">
-          <Link href="/" className="absolute ">
+        <div className="relative container flex items-center justify-between gap-10">
+          <Link href="/" className="absolute">
             <Image
               src={"/imgs/logo/atp-gym-logo-no-bg.png"}
               width={500}
@@ -73,8 +66,8 @@ export default function Header() {
               className="w-22"
             />
           </Link>
-          <ul className="flex items-center gap-5 flex-1 justify-center">
-            {LIST.map((item) => (
+          <ul className="flex flex-1 items-center justify-center gap-5">
+            {LINKS_LIST.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}

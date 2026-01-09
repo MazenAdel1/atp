@@ -1,60 +1,27 @@
 "use client";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useState, useEffect, useCallback, useMemo, memo } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import SectionTitle from "../SectionTitle";
+import { useQuery } from "@tanstack/react-query";
+import api from "@/lib/axios";
+import VideoIframe from "./VideoIframe";
+import { getReelId } from "@/utils/utils";
+import { BottomLeftGlow } from "@/components/layout/Glow";
 
 // Move videos data outside component to prevent recreation on each render
-const VIDEO_IDS = [
-  "1691943138859099",
-  "1333183554989098",
-  "2213783939140199",
-  "778758254662129",
-  "761261139937750",
-  "1449471386300348",
-] as const;
+// const VIDEO_IDS = [
+//   "1691943138859099",
+//   "1333183554989098",
+//   "2213783939140199",
+//   "778758254662129",
+//   "761261139937750",
+//   "1449471386300348",
+// ] as const;
 
 const GAP_PX = 16;
 
 // Memoized video iframe component
-const VideoIframe = memo(function VideoIframe({
-  videoId,
-}: {
-  videoId: string;
-}) {
-  const [isInteracting, setIsInteracting] = useState(false);
-  const src = `https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F${videoId}%2F&show_text=false&width=267&t=0`;
-
-  return (
-    <div
-      className="relative"
-      onMouseEnter={() => setIsInteracting(true)}
-      onMouseLeave={() => setIsInteracting(false)}
-      onClick={() => setIsInteracting(true)}
-    >
-      <iframe
-        src={src}
-        width="267"
-        height="476"
-        style={{
-          border: "none",
-          overflow: "hidden",
-          pointerEvents: isInteracting ? "auto" : "none",
-        }}
-        scrolling="no"
-        frameBorder="0"
-        allowFullScreen
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-        loading="lazy"
-        title={`Facebook video ${videoId}`}
-      />
-      {/* Invisible overlay to capture initial click and enable iframe interaction */}
-      {!isInteracting && (
-        <div className="absolute inset-0 cursor-pointer" aria-hidden="true" />
-      )}
-    </div>
-  );
-});
 
 // Get visible count based on breakpoints
 const getVisibleCount = (): number => {
@@ -71,10 +38,18 @@ export default function Content() {
   const [step, setStep] = useState(0);
   const [visibleCount, setVisibleCount] = useState(1);
 
-  const videoCount = VIDEO_IDS.length;
+  const { data: videos } = useQuery({
+    queryKey: ["videos"],
+    queryFn: async () => {
+      const { data: videos } = (await api.get("/content")).data;
+      return videos as { id: string; url: string }[];
+    },
+  });
+
+  const videoCount = videos?.length || 0;
   const maxSteps = useMemo(
     () => Math.max(0, videoCount - visibleCount),
-    [videoCount, visibleCount]
+    [videoCount, visibleCount],
   );
 
   // Handle resize with debounce for better performance
@@ -129,7 +104,7 @@ export default function Content() {
   // Item width style
   const itemWidth = useMemo(
     () => `calc((100% - ${(visibleCount - 1) * GAP_PX}px) / ${visibleCount})`,
-    [visibleCount]
+    [visibleCount],
   );
 
   const isAtStart = step === 0;
@@ -137,9 +112,10 @@ export default function Content() {
 
   return (
     <section id="content" className="section">
+      <BottomLeftGlow />
       <SectionTitle title="المحتوى" />
 
-      <div className="flex flex-col gap-5 w-full">
+      <div className="flex w-full flex-col gap-5">
         {/* Video Slider */}
         <div
           className="relative w-full overflow-hidden"
@@ -151,14 +127,14 @@ export default function Content() {
               transform: `translateX(${translateX})`,
             }}
           >
-            {VIDEO_IDS.map((videoId) => (
+            {videos?.map((video) => (
               <div
-                key={videoId}
+                key={video.id}
                 className="shrink-0 overflow-hidden"
                 style={{ width: itemWidth }}
               >
-                <div className="w-fit mx-auto flex items-center justify-center overflow-hidden">
-                  <VideoIframe videoId={videoId} />
+                <div className="mx-auto flex w-fit items-center justify-center overflow-hidden">
+                  <VideoIframe videoId={getReelId(video.url)} />
                 </div>
               </div>
             ))}
@@ -166,19 +142,19 @@ export default function Content() {
         </div>
 
         {/* Navigation buttons below slider */}
-        <div className="flex justify-center items-center gap-4">
+        <div className="flex items-center justify-center gap-4">
           <button
             type="button"
             className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors ${
               !isAtStart
-                ? "bg-yellow text-black hover:bg-yellow/90 shadow-md"
-                : "bg-white/10 text-white/40 cursor-not-allowed"
+                ? "bg-yellow hover:bg-yellow/90 text-black shadow-md"
+                : "cursor-not-allowed bg-white/10 text-white/40"
             }`}
             onClick={goLeft}
             disabled={isAtStart}
             aria-label="السابق"
           >
-            <ArrowRight className="w-5 h-5" />
+            <ArrowRight className="h-5 w-5" />
           </button>
 
           <div
@@ -195,7 +171,7 @@ export default function Content() {
                 className={`h-2 transition-all ${
                   step === idx
                     ? "bg-yellow w-8"
-                    : "bg-white/30 hover:bg-white/50 w-2"
+                    : "w-2 bg-white/30 hover:bg-white/50"
                 }`}
                 onClick={() => goToStep(idx)}
                 aria-label={`اذهب إلى مجموعة الفيديو رقم ${idx + 1}`}
@@ -207,14 +183,14 @@ export default function Content() {
             type="button"
             className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors ${
               !isAtEnd
-                ? "bg-yellow text-black hover:bg-yellow/90 shadow-md"
-                : "bg-white/10 text-white/40 cursor-not-allowed"
+                ? "bg-yellow hover:bg-yellow/90 text-black shadow-md"
+                : "cursor-not-allowed bg-white/10 text-white/40"
             }`}
             onClick={goRight}
             disabled={isAtEnd}
             aria-label="التالي"
           >
-            <ArrowLeft className="w-5 h-5" />
+            <ArrowLeft className="h-5 w-5" />
           </button>
         </div>
       </div>
