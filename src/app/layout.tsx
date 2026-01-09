@@ -22,10 +22,10 @@ export default async function RootLayout({
     <html
       lang="ar"
       dir="rtl"
-      className="scroll-smooth scrollbar-thumb-yellow/70 scrollbar-track-transparent scrollbar-thin **:scrollbar-thin"
+      className="scrollbar-thumb-yellow/70 scrollbar-track-transparent scrollbar-thin **:scrollbar-thin scroll-smooth"
     >
       <body
-        className={`${readexPro.variable} antialiased font-readex-pro bg-black text-white overflow-x-hidden`}
+        className={`${readexPro.variable} font-readex-pro overflow-x-hidden bg-black text-white antialiased`}
       >
         <QueryProvider>{children}</QueryProvider>
       </body>

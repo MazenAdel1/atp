@@ -2,6 +2,7 @@ import { MembershipModalProps } from "@/lib/types";
 import Modal from "../Modal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/lib/axios";
+import { Trash } from "lucide-react";
 
 export default function DeleteModal({ membership }: MembershipModalProps) {
   const queryClient = useQueryClient();
@@ -18,7 +19,11 @@ export default function DeleteModal({ membership }: MembershipModalProps) {
 
   return (
     <Modal
-      trigger="حذف"
+      trigger={
+        <>
+          <Trash className="w-4 md:w-5" /> حذف
+        </>
+      }
       triggerClassName="bg-red-600/25 border-red-600/35 text-red-600 hover:bg-red-600/35 transition"
       content={(setIsOpen) => (
         <div className="flex flex-col gap-4">

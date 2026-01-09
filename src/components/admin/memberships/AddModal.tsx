@@ -30,7 +30,7 @@ export default function AddModal({ sportId }: { sportId: number }) {
     <Modal
       trigger={
         <>
-          <Plus /> إضافة اشتراك
+          <Plus className="w-4 md:w-5" /> إضافة اشتراك
         </>
       }
       content={(setIsOpen) => (

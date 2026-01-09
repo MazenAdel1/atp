@@ -2,6 +2,7 @@ import Modal from "../Modal";
 import { MembershipModalProps, SportProps } from "@/lib/types";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "@/lib/axios";
+import { Edit } from "lucide-react";
 
 export default function EditModal({ membership }: MembershipModalProps) {
   const queryClient = useQueryClient();
@@ -28,7 +29,11 @@ export default function EditModal({ membership }: MembershipModalProps) {
 
   return (
     <Modal
-      trigger={"تعديل"}
+      trigger={
+        <>
+          <Edit className="w-4 md:w-5" /> تعديل
+        </>
+      }
       triggerClassName="bg-blue-500/25 border-blue-500/35 text-blue-400 hover:bg-blue-500/35 transition"
       content={(setIsOpen) => (
         <div>

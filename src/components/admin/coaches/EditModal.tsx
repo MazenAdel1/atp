@@ -4,6 +4,7 @@ import { CoachModalProps, SportProps } from "@/lib/types";
 import AdminImagePicker from "../AdminImagePicker";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import api from "@/lib/axios";
+import { Edit } from "lucide-react";
 
 export default function EditModal({ coach }: CoachModalProps) {
   const [editImage, setEditImage] = useState<File | null>(null);
@@ -53,7 +54,11 @@ export default function EditModal({ coach }: CoachModalProps) {
 
   return (
     <Modal
-      trigger={"تعديل"}
+      trigger={
+        <>
+          <Edit className="w-4 md:w-5" /> تعديل
+        </>
+      }
       triggerClassName="bg-blue-500/25 border-blue-500/35 text-blue-400 hover:bg-blue-500/35 transition"
       content={(setIsOpen) => (
         <div>

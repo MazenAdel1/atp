@@ -17,17 +17,17 @@ export default function Navbar() {
   const pathname = usePathname();
   return (
     <nav className="border-b border-white/25">
-      <ul className="flex items-center gap-8 container">
+      <ul className="container flex items-center gap-8 overflow-x-auto">
         {URLs.map((url) => (
           <li key={url.href}>
             <Link
               href={url.href}
               className={cn(
-                "flex items-center gap-2 py-5",
-                pathname === url.href && "text-yellow border-b-2 border-yellow"
+                "flex items-center gap-1 py-5 md:gap-2",
+                pathname === url.href && "text-yellow border-yellow border-b-2",
               )}
             >
-              <url.icon />
+              <url.icon className="w-4 md:w-5" />
               {url.label}
             </Link>
           </li>

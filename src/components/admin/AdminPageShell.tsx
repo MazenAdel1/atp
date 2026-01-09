@@ -15,7 +15,7 @@ export default function AdminPageShell({
   return (
     <main className="container py-5">
       <section className="flex items-center justify-between">
-        <h1 className="text-2xl">{title}</h1>
+        <h1 className="text-lg md:text-2xl">{title}</h1>
         {action}
       </section>
       <section

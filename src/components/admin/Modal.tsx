@@ -35,7 +35,7 @@ export default function Modal({
         <button
           className={
             triggerClassName ??
-            "bg-yellow text-black py-2 px-4 flex items-center gap-2 hover:bg-orange transition rounded-sm"
+            "bg-yellow hover:bg-orange flex items-center gap-1 rounded-sm px-2 py-1 text-sm text-black transition md:gap-2 md:px-4 md:py-2 md:text-base"
           }
           onClick={() => setIsOpen(true)}
           type="button"
@@ -50,7 +50,7 @@ export default function Modal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="p-2 fixed inset-0 bg-black/50 backdrop-blur-md flex justify-center items-center z-50 border-none"
+            className="fixed inset-0 z-50 flex items-center justify-center border-none bg-black/50 p-4 backdrop-blur-md"
             onClick={() => setIsOpen(false)}
           >
             <motion.div
@@ -58,11 +58,11 @@ export default function Modal({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 50 }}
               transition={{ type: "spring", duration: 0.5 }}
-              className="bg-gray border border-white/25 rounded-lg p-6 max-w-lg w-full flex flex-col gap-2 max-h-full overflow-y-auto"
+              className="bg-gray flex max-h-full w-full max-w-lg flex-col gap-2 overflow-y-auto rounded-lg border border-white/25 p-6"
               onClick={(e) => e.stopPropagation()}
             >
               <button
-                className="text-white w-fit bg-white/25 hover:bg-white/30 rounded-full transition p-2 -mt-2 -mr-2"
+                className="-mt-2 -mr-2 w-fit rounded-full bg-white/25 p-2 text-white transition hover:bg-white/30"
                 onClick={() => setIsOpen(false)}
                 type="button"
               >

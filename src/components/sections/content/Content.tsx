@@ -8,20 +8,9 @@ import api from "@/lib/axios";
 import VideoIframe from "./VideoIframe";
 import { getReelId } from "@/utils/utils";
 import { BottomLeftGlow } from "@/components/layout/Glow";
-
-// Move videos data outside component to prevent recreation on each render
-// const VIDEO_IDS = [
-//   "1691943138859099",
-//   "1333183554989098",
-//   "2213783939140199",
-//   "778758254662129",
-//   "761261139937750",
-//   "1449471386300348",
-// ] as const;
+import { ContentSkeleton } from "@/components/ui/Loader";
 
 const GAP_PX = 16;
-
-// Memoized video iframe component
 
 // Get visible count based on breakpoints
 const getVisibleCount = (): number => {
@@ -38,7 +27,7 @@ export default function Content() {
   const [step, setStep] = useState(0);
   const [visibleCount, setVisibleCount] = useState(1);
 
-  const { data: videos } = useQuery({
+  const { data: videos, isLoading } = useQuery({
     queryKey: ["videos"],
     queryFn: async () => {
       const { data: videos } = (await api.get("/content")).data;
@@ -109,6 +98,10 @@ export default function Content() {
 
   const isAtStart = step === 0;
   const isAtEnd = step >= maxSteps;
+
+  if (isLoading) {
+    return <ContentSkeleton />;
+  }
 
   return (
     <section id="content" className="section">

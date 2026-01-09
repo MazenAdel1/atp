@@ -43,7 +43,7 @@ export default function AddModal() {
     <Modal
       trigger={
         <>
-          <Plus /> إضافة مدرب
+          <Plus className="w-4 md:w-5" /> إضافة مدرب
         </>
       }
       content={(setIsOpen) => (

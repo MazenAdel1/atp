@@ -24,12 +24,12 @@ export default function AddModal() {
     <Modal
       trigger={
         <>
-          <Plus /> إضافة الشركاء
+          <Plus className="w-4 md:w-5" /> إضافة الشركاء
         </>
       }
       content={(setIsOpen) => (
         <div>
-          <h2 className="text-xl mb-4 text-center">إضافة شريك جديد</h2>
+          <h2 className="mb-4 text-center text-xl">إضافة شريك جديد</h2>
           <form
             className="flex flex-col gap-4"
             onSubmit={async (e) => {
@@ -50,7 +50,7 @@ export default function AddModal() {
                 id="name"
                 name="name"
                 placeholder="اسم الشريك"
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
                 autoFocus
               />
@@ -66,14 +66,14 @@ export default function AddModal() {
                 name="description"
                 placeholder="وصف الشريك"
                 required
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
               />
             </div>
 
             <div className="flex flex-col gap-1">
               <label htmlFor="links" className="text-white/85">
                 رابط الشريك{" "}
-                <span className="text-white/50 text-sm">
+                <span className="text-sm text-white/50">
                   (موقع إلكتروني ٫ صفحة تواصل اجتماعي ٫ إلخ... )
                 </span>
               </label>
@@ -83,7 +83,7 @@ export default function AddModal() {
                 name="links[]"
                 placeholder="رابط الشريك"
                 required
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
               />
             </div>
 
@@ -96,7 +96,7 @@ export default function AddModal() {
 
             <button
               type="submit"
-              className="bg-yellow text-black p-2 rounded-md mt-2 hover:bg-orange transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-yellow hover:bg-orange mt-2 rounded-md p-2 text-black transition disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isPending}
             >
               حفظ

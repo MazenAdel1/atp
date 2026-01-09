@@ -29,12 +29,12 @@ export default function AddModal() {
     <Modal
       trigger={
         <>
-          <Plus /> إضافة فيديو
+          <Plus className="w-4 md:w-5" /> إضافة فيديو
         </>
       }
       content={(setIsOpen) => (
         <div>
-          <h2 className="text-xl mb-4 text-center">إضافة فيديو جديد</h2>
+          <h2 className="mb-4 text-center text-xl">إضافة فيديو جديد</h2>
           <form
             ref={formRef}
             className="flex flex-col gap-4"
@@ -56,7 +56,7 @@ export default function AddModal() {
                 id="url"
                 name="url"
                 placeholder="https://www.facebook.com/reel/..."
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
                 autoFocus
               />
@@ -65,7 +65,7 @@ export default function AddModal() {
             <button
               type="submit"
               className={
-                "bg-yellow text-black p-2 rounded-md mt-2 hover:bg-orange transition disabled:opacity-50 disabled:cursor-not-allowed"
+                "bg-yellow hover:bg-orange mt-2 rounded-md p-2 text-black transition disabled:cursor-not-allowed disabled:opacity-50"
               }
               disabled={isPending}
             >

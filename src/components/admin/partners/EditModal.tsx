@@ -4,6 +4,7 @@ import { PartnerModalProps } from "@/lib/types";
 import AdminImagePicker from "../AdminImagePicker";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/lib/axios";
+import { Edit } from "lucide-react";
 
 export default function EditModal({ partner }: PartnerModalProps) {
   const [editImage, setEditImage] = useState<File | null>(null);
@@ -30,11 +31,15 @@ export default function EditModal({ partner }: PartnerModalProps) {
 
   return (
     <Modal
-      trigger={"تعديل"}
+      trigger={
+        <>
+          <Edit className="w-4 md:w-5" /> تعديل
+        </>
+      }
       triggerClassName="bg-blue-500/25 border-blue-500/35 text-blue-400 hover:bg-blue-500/35 transition"
       content={(setIsOpen) => (
         <div>
-          <h2 className="text-xl mb-4 text-center">تعديل الشريك</h2>
+          <h2 className="mb-4 text-center text-xl">تعديل الشريك</h2>
           <form
             className="flex flex-col gap-4"
             onSubmit={async (e) => {
@@ -55,7 +60,7 @@ export default function EditModal({ partner }: PartnerModalProps) {
                 name="name"
                 placeholder="اسم الشريك"
                 defaultValue={partner.name}
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
                 autoFocus
               />
@@ -71,7 +76,7 @@ export default function EditModal({ partner }: PartnerModalProps) {
                 name="description"
                 placeholder="وصف الشريك"
                 defaultValue={partner.description}
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
               />
             </div>
@@ -79,7 +84,7 @@ export default function EditModal({ partner }: PartnerModalProps) {
             <div className="flex flex-col gap-1">
               <label htmlFor="links" className="text-white/85">
                 رابط الشريك{" "}
-                <span className="text-white/50 text-sm">
+                <span className="text-sm text-white/50">
                   (موقع إلكتروني ٫ صفحة تواصل اجتماعي ٫ إلخ... )
                 </span>
               </label>
@@ -89,7 +94,7 @@ export default function EditModal({ partner }: PartnerModalProps) {
                 name="links[]"
                 defaultValue={partner.links}
                 placeholder="رابط الشريك"
-                className="w-full bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white text-right focus:border-yellow focus:outline-none"
+                className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
                 required
               />
             </div>
@@ -104,7 +109,7 @@ export default function EditModal({ partner }: PartnerModalProps) {
 
             <button
               type="submit"
-              className="bg-yellow text-black p-2 rounded-md mt-2 hover:bg-orange transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-yellow hover:bg-orange mt-2 rounded-md p-2 text-black transition disabled:cursor-not-allowed disabled:opacity-50"
               disabled={isPending}
             >
               حفظ التعديل

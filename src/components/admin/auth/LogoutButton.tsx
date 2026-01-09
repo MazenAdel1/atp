@@ -49,12 +49,12 @@ export default function LogoutButton() {
     <button
       onClick={() => mutateAsync()}
       disabled={isPending}
-      className="flex items-center gap-2 rounded-md border border-red-500/20 bg-red-500/10 px-4 py-2 text-red-500 transition hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-50"
+      className="flex items-center gap-2 rounded-md border border-red-500/20 bg-red-500/10 px-2 py-1 text-sm text-red-500 transition hover:bg-red-500/20 disabled:cursor-not-allowed disabled:opacity-50 md:px-4 md:py-2 md:text-base"
     >
       {isPending ? (
-        <Loader2 className="size-5 animate-spin" />
+        <Loader2 className="w-4 animate-spin md:w-5" />
       ) : (
-        <LogOut className="size-5" />
+        <LogOut className="w-4 md:w-5" />
       )}
       تسجيل الخروج
     </button>
