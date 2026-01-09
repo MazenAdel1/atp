@@ -6,9 +6,14 @@ import api from "@/lib/axios";
 import { PartnerProps } from "@/lib/types";
 
 export default async function Partners() {
-  const { data: partners }: { data: PartnerProps[] } = await (
-    await api.get("/partner")
-  ).data;
+  let partners: PartnerProps[] = [];
+
+  try {
+    const response = await api.get("/partner");
+    partners = response.data?.data || [];
+  } catch (error) {
+    console.error("Failed to fetch partners:", error);
+  }
 
   return (
     <section id="partners" className="section">

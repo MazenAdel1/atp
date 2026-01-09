@@ -5,9 +5,14 @@ import api from "@/lib/axios";
 import { MembershipProps } from "@/lib/types";
 
 export default async function Membership({ limit }: { limit?: number }) {
-  const { data: memberships }: { data: MembershipProps[] } = (
-    await api.get("/game")
-  ).data;
+  let memberships: MembershipProps[] = [];
+
+  try {
+    const response = await api.get("/game");
+    memberships = response.data?.data || [];
+  } catch (error) {
+    console.error("Failed to fetch memberships:", error);
+  }
 
   return (
     <section id="membership" className="section">

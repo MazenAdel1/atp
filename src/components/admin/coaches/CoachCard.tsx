@@ -16,10 +16,9 @@ export default function CoachCard({ coach }: { coach: CoachProps }) {
       <div className="flex flex-col gap-3 p-2">
         <div className="flex flex-col gap-1">
           <h3 className="text-lg font-semibold">{coach.name}</h3>
-          <p className="text-sm text-white/70">{coach.title}</p>
-          {coach.game_name && coach.game_name.length > 0 && (
+          {coach.game && coach.game.length > 0 && (
             <div className="mt-2 flex flex-wrap gap-2 text-sm">
-              {coach.game_name.map((game) => (
+              {coach.game.map((game) => (
                 <span
                   key={game.id}
                   className="rounded bg-green-500/20 px-2 py-1 text-green-400"

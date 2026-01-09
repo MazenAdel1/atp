@@ -8,7 +8,7 @@ import api from "@/lib/axios";
 export default function EditModal({ coach }: CoachModalProps) {
   const [editImage, setEditImage] = useState<File | null>(null);
   const [selectedGames, setSelectedGames] = useState<number[]>(
-    coach.game_name?.map((g) => g.id) ?? [],
+    coach.game?.map((g) => g.id) ?? [],
   );
 
   const queryClient = useQueryClient();
@@ -33,9 +33,7 @@ export default function EditModal({ coach }: CoachModalProps) {
         formData.append("games[]", gameId.toString());
       });
 
-      formData.append("_method", "PATCH");
-
-      const { data } = await api.post(`/coach/${coach.id}`, formData);
+      const { data } = await api.patch(`/coach/${coach.id}`, formData);
 
       return data.data;
     },

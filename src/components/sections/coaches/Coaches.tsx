@@ -6,9 +6,14 @@ import { CoachProps } from "@/lib/types";
 import { BottomGlow } from "@/components/layout/Glow";
 
 export default async function Coaches() {
-  const { data: coaches }: { data: CoachProps[] } = await (
-    await api.get("/coach")
-  ).data;
+  let coaches: CoachProps[] = [];
+
+  try {
+    const response = await api.get("/coach");
+    coaches = response.data?.data || [];
+  } catch (error) {
+    console.error("Failed to fetch coaches:", error);
+  }
 
   return (
     <motion.section id="coaches" className="section text-white">

@@ -1,6 +1,9 @@
 import api from "@/lib/axios";
 import { MembershipProps, SportProps } from "@/lib/types";
 import Image from "next/image";
+import { notFound } from "next/navigation";
+
+export const dynamic = "force-dynamic";
 
 function Plan(plan: MembershipProps) {
   return (
@@ -26,11 +29,21 @@ export default async function page({
   params: Promise<{ sportId: string }>;
 }) {
   const { sportId } = await params;
-  const { data: sport }: { data: SportProps } = await (
-    await api.get(`/game/${sportId}`)
-  ).data;
 
-  const groupedData = Object.groupBy(sport.packages!, ({ gender }) =>
+  let sport: SportProps | null = null;
+
+  try {
+    const response = await api.get(`/game/${sportId}`);
+    sport = response.data?.data || null;
+  } catch (error) {
+    console.error("Failed to fetch sport:", error);
+  }
+
+  if (!sport) {
+    notFound();
+  }
+
+  const groupedData = Object.groupBy(sport.packages || [], ({ gender }) =>
     gender === "male" ? "male" : "female",
   );
 

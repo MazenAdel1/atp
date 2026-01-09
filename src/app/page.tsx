@@ -7,6 +7,8 @@ import Address from "@/components/sections/address/Address";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/sections/footer/Footer";
 
+export const dynamic = "force-dynamic";
+
 export default function Home() {
   return (
     <>
