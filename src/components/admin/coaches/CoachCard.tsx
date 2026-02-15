@@ -1,11 +1,11 @@
 import EditModal from "./EditModal";
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "../DeleteModal";
 import { CoachProps } from "@/lib/types";
 import Image from "next/image";
 
 export default function CoachCard({ coach }: { coach: CoachProps }) {
   return coach ? (
-    <div className="bg-gray hover:border-yellow/50 flex flex-col justify-between gap-3 overflow-hidden rounded-lg border border-white/25 transition">
+    <div className="admin-entity-card">
       <Image
         src={coach.image}
         alt={coach.name}
@@ -31,7 +31,11 @@ export default function CoachCard({ coach }: { coach: CoachProps }) {
         </div>
         <div className="flex items-center gap-2 *:flex *:w-full *:items-center *:justify-center *:gap-2 *:rounded-sm *:border *:py-1">
           <EditModal coach={coach} />
-          <DeleteModal coach={coach} />
+          <DeleteModal
+            endpoint={`/coach/${coach.id}`}
+            queryKey="coaches"
+            title="حذف المدرب"
+          />
         </div>
       </div>
     </div>

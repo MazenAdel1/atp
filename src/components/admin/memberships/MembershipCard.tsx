@@ -1,5 +1,5 @@
 import EditModal from "./EditModal";
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "../DeleteModal";
 import { MembershipProps } from "@/lib/types";
 
 const genderLabels = {
@@ -14,7 +14,7 @@ export default function MembershipCard({
   membership: MembershipProps;
 }) {
   return membership ? (
-    <div className="bg-gray hover:border-yellow/50 flex flex-col justify-between gap-3 overflow-hidden rounded-lg border border-white/25 transition">
+    <div className="admin-entity-card">
       <div className="flex flex-col gap-3 p-2">
         <div className="flex flex-col gap-1">
           <h3 className="text-lg font-semibold">{membership.name}</h3>
@@ -39,7 +39,11 @@ export default function MembershipCard({
         </div>
         <div className="flex items-center gap-2 *:flex *:w-full *:items-center *:justify-center *:gap-2 *:rounded-sm *:border *:py-1">
           <EditModal membership={membership} />
-          <DeleteModal membership={membership} />
+          <DeleteModal
+            endpoint={`/package/${membership.id}`}
+            queryKey="memberships"
+            title="حذف الاشتراك"
+          />
         </div>
       </div>
     </div>

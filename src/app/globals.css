@@ -34,10 +34,14 @@ button {
   }
 }
 
-.section {
+@utility section {
   @apply relative container flex flex-col items-center gap-16 py-20;
 }
 
-.title {
+@utility title {
   @apply text-yellow text-center text-4xl font-semibold;
+}
+
+@utility admin-entity-card {
+  @apply bg-gray hover:border-yellow/50 flex flex-col justify-between gap-3 overflow-hidden rounded-lg border border-white/25 transition;
 }

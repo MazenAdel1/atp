@@ -1,9 +1,11 @@
-import Image from "next/image";
-import Link from "next/link";
 import { TopGlow } from "../../layout/Glow";
 import SectionTitle from "../SectionTitle";
 import api from "@/lib/axios";
 import { PartnerProps } from "@/lib/types";
+import { cn } from "@/utils/cn";
+import DataWrapper from "@/components/ui/DataWrapper";
+import * as motion from "motion/react-client";
+import PartnerCard from "./PartnerCard";
 
 export default async function Partners() {
   let partners: PartnerProps[] = [];
@@ -16,37 +18,40 @@ export default async function Partners() {
   }
 
   return (
-    <section id="partners" className="section">
+    <section
+      id="partners"
+      className={cn("section", partners.length === 0 && "py-0!")}
+    >
       <TopGlow />
       <SectionTitle title="شركاءنا" />
-      <div className="max-w-full overflow-hidden">
-        <ul className="flex h-64 items-center gap-10">
-          {partners.map((partner, index) => {
-            return (
-              <li
-                key={index}
-                className="group relative h-full w-96 flex-1 shrink-0 overflow-hidden"
-              >
-                <Link
-                  href={partner.links[0]}
-                  className="bg-yellow/25 text-yellow absolute flex size-full items-center justify-center text-xl font-medium opacity-0 backdrop-blur-lg transition-opacity group-hover:opacity-100"
+      <DataWrapper data={partners}>
+        <div className="max-w-full overflow-hidden">
+          <motion.ul
+            initial="hidden"
+            whileInView="visible"
+            transition={{
+              ease: "easeInOut",
+              staggerChildren: 0.25,
+            }}
+            viewport={{ once: true, amount: 0.33 }}
+            className="flex h-64 items-center gap-10"
+          >
+            {partners.map((partner, index) => {
+              return (
+                <motion.li
+                  key={index}
+                  variants={{
+                    hidden: { opacity: 0, y: 20 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
                 >
-                  <p className="drop-shadow-back drop-shadow-black">
-                    {partner.description}
-                  </p>
-                </Link>
-                <Image
-                  src={partner.image}
-                  alt={partner.name}
-                  width={500}
-                  height={500}
-                  className="size-full object-cover"
-                />
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+                  <PartnerCard partner={partner} />
+                </motion.li>
+              );
+            })}
+          </motion.ul>
+        </div>
+      </DataWrapper>
     </section>
   );
 }

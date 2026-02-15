@@ -1,12 +1,12 @@
 import EditModal from "./EditModal";
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "../DeleteModal";
 import { PartnerProps } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function PartnerCard({ partner }: { partner: PartnerProps }) {
   return partner ? (
-    <div className="bg-gray hover:border-yellow/50 flex flex-col justify-between gap-3 overflow-hidden rounded-lg border border-white/25 transition">
+    <div className="admin-entity-card">
       <Image
         src={partner.image}
         alt={partner.name}
@@ -29,7 +29,11 @@ export default function PartnerCard({ partner }: { partner: PartnerProps }) {
         </div>
         <div className="flex items-center gap-2 *:flex *:w-full *:items-center *:justify-center *:gap-2 *:rounded-sm *:border *:py-1">
           <EditModal partner={partner} />
-          <DeleteModal partner={partner} />
+          <DeleteModal
+            endpoint={`/partner/${partner.id}`}
+            queryKey="partners"
+            title="حذف الشريك"
+          />
         </div>
       </div>
     </div>

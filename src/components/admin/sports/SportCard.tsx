@@ -1,11 +1,11 @@
 import EditModal from "./EditModal";
-import DeleteModal from "./DeleteModal";
+import DeleteModal from "../DeleteModal";
 import { SportProps } from "@/lib/types";
 import Image from "next/image";
 
 export default function SportCard({ sport }: { sport: SportProps }) {
   return sport ? (
-    <div className="bg-gray hover:border-yellow/50 flex flex-col justify-between gap-3 overflow-hidden rounded-lg border border-white/25 transition">
+    <div className="admin-entity-card">
       <Image
         src={sport.image}
         alt={sport.name}
@@ -20,7 +20,11 @@ export default function SportCard({ sport }: { sport: SportProps }) {
         </div>
         <div className="flex items-center gap-2 *:flex *:w-full *:items-center *:justify-center *:gap-2 *:rounded-sm *:border *:py-1">
           <EditModal sport={sport} />
-          <DeleteModal sport={sport} />
+          <DeleteModal
+            endpoint={`/game/${sport.id}`}
+            queryKey="sports"
+            title="حذف الرياضة"
+          />
         </div>
       </div>
     </div>

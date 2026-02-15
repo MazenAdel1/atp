@@ -1,9 +1,8 @@
 import { CoachProps } from "@/lib/types";
-import * as motion from "motion/react-client";
 
 export default function CoachCard({ image, name, game }: CoachProps) {
   return (
-    <motion.div className="group relative aspect-3/4 overflow-hidden shadow-lg">
+    <div className="group relative aspect-3/4 overflow-hidden shadow-lg">
       <div
         className="absolute inset-0 bg-cover bg-center transition-all duration-300 group-hover:scale-105"
         style={{ backgroundImage: `url(${image})` }}
@@ -17,6 +16,6 @@ export default function CoachCard({ image, name, game }: CoachProps) {
           {game?.map((g) => g.name).join(" - ")}
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 }

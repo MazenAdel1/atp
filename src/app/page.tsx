@@ -21,7 +21,7 @@ export default function Home() {
       <Header />
       <Landing />
 
-      <section className="flex flex-col justify-center gap-14 pb-10">
+      <div className="flex flex-col justify-center gap-14 pb-10">
         <Suspense fallback={<MembershipSkeleton />}>
           <Membership limit={4} />
         </Suspense>
@@ -33,7 +33,7 @@ export default function Home() {
           <Coaches />
         </Suspense>
         <Address />
-      </section>
+      </div>
 
       <Footer />
     </>

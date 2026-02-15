@@ -80,7 +80,7 @@ export function ContentSkeleton() {
             {[1, 2, 3, 4].map((i) => (
               <div
                 key={i}
-                className="h-[476px] w-[268px] shrink-0 animate-pulse rounded-lg bg-white/10"
+                className="h-119 w-67 shrink-0 animate-pulse rounded-lg bg-white/10"
               ></div>
             ))}
           </div>

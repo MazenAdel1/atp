@@ -78,10 +78,10 @@ export default function LoginForm() {
       <button
         type="submit"
         disabled={isPending}
-        className="bg-yellow hover:bg-orange mt-2 flex items-center justify-center gap-2 rounded-md p-2 text-black transition disabled:cursor-not-allowed disabled:opacity-50"
+        className="bg-yellow hover:bg-orange mt-2 flex items-center justify-center gap-1 rounded-md p-2 text-black transition disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {isPending && <Loader2 className="size-5 animate-spin" />}
         تسجيل الدخول
+        {isPending && <Loader2 className="size-4 animate-spin" />}
       </button>
     </form>
   );

@@ -1,103 +1,27 @@
 "use client";
 
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useState, useEffect, useCallback, useMemo } from "react";
 import SectionTitle from "../SectionTitle";
-import { useQuery } from "@tanstack/react-query";
-import api from "@/lib/axios";
 import VideoIframe from "./VideoIframe";
 import { getReelId } from "@/utils/utils";
 import { BottomLeftGlow } from "@/components/layout/Glow";
 import { ContentSkeleton } from "@/components/ui/Loader";
-
-const GAP_PX = 16;
-
-// Get visible count based on breakpoints
-const getVisibleCount = (): number => {
-  if (typeof window === "undefined") return 1;
-  const width = window.innerWidth;
-  if (width >= 1536) return 5; // 2xl
-  if (width >= 1280) return 4; // xl
-  if (width >= 1024) return 3; // lg
-  if (width >= 640) return 2; // sm
-  return 1; // mobile
-};
+import { useContentSlider } from "./useContentSlider";
 
 export default function Content() {
-  const [step, setStep] = useState(0);
-  const [visibleCount, setVisibleCount] = useState(1);
-
-  const { data: videos, isLoading } = useQuery({
-    queryKey: ["videos"],
-    queryFn: async () => {
-      const { data: videos } = (await api.get("/content")).data;
-      return videos as { id: string; url: string }[];
-    },
-  });
-
-  const videoCount = videos?.length || 0;
-  const maxSteps = useMemo(
-    () => Math.max(0, videoCount - visibleCount),
-    [videoCount, visibleCount],
-  );
-
-  // Handle resize with debounce for better performance
-  useEffect(() => {
-    let timeoutId: ReturnType<typeof setTimeout>;
-
-    const updateVisibleCount = () => {
-      const newCount = getVisibleCount();
-      setVisibleCount(newCount);
-      setStep((prev) => Math.min(prev, Math.max(0, videoCount - newCount)));
-    };
-
-    // Initial set
-    updateVisibleCount();
-
-    const handleResize = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(updateVisibleCount, 100);
-    };
-
-    window.addEventListener("resize", handleResize, { passive: true });
-    return () => {
-      window.removeEventListener("resize", handleResize);
-      clearTimeout(timeoutId);
-    };
-  }, [videoCount]);
-
-  // Navigation handlers
-  const goLeft = useCallback(() => {
-    setStep((prev) => Math.max(prev - 1, 0));
-  }, []);
-
-  const goRight = useCallback(() => {
-    setStep((prev) => Math.min(prev + 1, maxSteps));
-  }, [maxSteps]);
-
-  const goToStep = useCallback((idx: number) => {
-    setStep(idx);
-  }, []);
-
-  // Calculate translation based on step - use pixel-based calculation for precision
-  const translateX = useMemo(() => {
-    // Each item width = (100% - totalGaps) / visibleCount
-    // We need to move by: step * (itemWidth + gap)
-    // Using CSS calc for accurate calculation
-    const totalGaps = (visibleCount - 1) * GAP_PX;
-    const itemWidthCalc = `(100% - ${totalGaps}px) / ${visibleCount}`;
-    const moveAmount = `calc((${itemWidthCalc} + ${GAP_PX}px) * ${step})`;
-    return moveAmount;
-  }, [step, visibleCount]);
-
-  // Item width style
-  const itemWidth = useMemo(
-    () => `calc((100% - ${(visibleCount - 1) * GAP_PX}px) / ${visibleCount})`,
-    [visibleCount],
-  );
-
-  const isAtStart = step === 0;
-  const isAtEnd = step >= maxSteps;
+  const {
+    videos,
+    isLoading,
+    step,
+    maxSteps,
+    translateX,
+    itemWidth,
+    isAtStart,
+    isAtEnd,
+    goLeft,
+    goRight,
+    goToStep,
+  } = useContentSlider();
 
   if (isLoading) {
     return <ContentSkeleton />;

@@ -34,12 +34,16 @@ export default function Page() {
                 key={sport.id}
                 className="border-yellow/20 hover:border-yellow/50 bg-gray grid grid-cols-1 gap-2 rounded-lg border p-2 transition lg:grid-cols-2"
               >
-                {sport.packages?.map((membership) => (
-                  <MembershipCard
-                    key={membership.id}
-                    membership={{ ...membership, game_id: sport.id }}
-                  />
-                ))}
+                {(sport.packages?.length as number) > 0 ? (
+                  sport.packages?.map((membership) => (
+                    <MembershipCard
+                      key={membership.id}
+                      membership={{ ...membership, game_id: sport.id }}
+                    />
+                  ))
+                ) : (
+                  <p className="text-white/70">لا يوجد اشتراكات.</p>
+                )}
               </div>
             </AdminPageShell>
           ))

@@ -40,7 +40,7 @@ export default function Footer() {
           </div>
 
           {/* Social Media and Contact */}
-          <div className="flex w-fit flex-col items-center gap-4 justify-self-end md:items-start">
+          <div className="flex w-full flex-col items-center justify-center gap-4 md:w-fit md:justify-self-end">
             <h3 className="text-yellow text-end text-lg font-semibold">
               تابعنا
             </h3>
