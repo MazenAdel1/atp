@@ -5,7 +5,7 @@ import Partners from "@/components/sections/partners/Partners";
 import Content from "@/components/sections/content/Content";
 import Coaches from "@/components/sections/coaches/Coaches";
 import Address from "@/components/sections/address/Address";
-import Header from "@/components/layout/Header";
+import Header from "@/components/layout/header/Header";
 import Footer from "@/components/sections/footer/Footer";
 import {
   MembershipSkeleton,
