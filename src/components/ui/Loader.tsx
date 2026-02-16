@@ -69,33 +69,28 @@ export function ContentSkeleton() {
   return (
     <section id="content" className="section">
       <div className="mb-8 flex flex-col items-center gap-4">
-        <div className="bg-yellow/20 h-10 w-48 animate-pulse rounded"></div>
+        <div className="bg-yellow/20 h-10 w-48 animate-pulse rounded" />
       </div>
       <div className="flex w-full flex-col gap-5">
-        <div
-          className="relative w-full overflow-hidden"
-          style={{ minHeight: 476 }}
-        >
-          <div className="flex gap-4">
-            {[1, 2, 3, 4].map((i) => (
-              <div
-                key={i}
-                className="h-119 w-67 shrink-0 animate-pulse rounded-lg bg-white/10"
-              ></div>
-            ))}
-          </div>
+        <div className="relative grid min-h-119 w-full grid-cols-4 gap-5 overflow-hidden md:gap-10">
+          {[1, 2, 3, 4].map((i) => (
+            <div
+              key={i}
+              className="size-full shrink-0 animate-pulse rounded-lg bg-white/10"
+            />
+          ))}
         </div>
-        <div className="flex items-center justify-center gap-4">
-          <div className="h-10 w-24 animate-pulse rounded bg-white/10"></div>
+        <div className="flex w-full items-center justify-center gap-4">
+          <div className="h-10 w-24 animate-pulse rounded bg-white/10" />
           <div className="flex gap-2">
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
                 className="h-2 w-2 animate-pulse rounded bg-white/30"
-              ></div>
+              />
             ))}
           </div>
-          <div className="h-10 w-24 animate-pulse rounded bg-white/10"></div>
+          <div className="h-10 w-24 animate-pulse rounded bg-white/10" />
         </div>
       </div>
     </section>
