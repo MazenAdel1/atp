@@ -4,20 +4,18 @@ import Link from "next/link";
 
 export default function Landing() {
   return (
-    <section className="section h-[calc(100dvh-76px)] flex-1 justify-center text-center">
+    <section className="section h-dvh flex-1 justify-center pt-16 pb-0 text-center md:pt-19">
       <TopRightGlow />
       <BottomLeftGlow />
       <div className="flex flex-col gap-5">
-        <h1 className="text-7xl font-black">
+        <h1 className="flex flex-wrap items-center justify-center gap-6.25 text-6xl leading-20 font-black md:text-7xl md:leading-23">
           أطلق العنان{" "}
-          <span className="text-yellow drop-shadow-yellow drop-shadow-back">
+          <span className="text-yellow drop-shadow-yellow drop-shadow-back flex items-center justify-center gap-3 justify-self-center">
             لطاقتك
-          </span>{" "}
-          <span className="-mr-3 inline-block align-middle">
             <LightningBoltAnimated />
-          </span>
+          </span>{" "}
         </h1>
-        <p className="text-2xl font-light text-white/80">
+        <p className="text-lg font-light text-white/80 md:text-2xl">
           استمتع برفاهية لا مثيل لها، ومعدات متطورة، وإرشادات الخبراء في رحلتك
           نحو قمة التميز البدني.
         </p>
