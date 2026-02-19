@@ -1,16 +1,10 @@
 "use client";
 
 import { AnimatePresence } from "motion/react";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
-
-export type ModalProps = {
-  trigger?: ReactNode;
-  content: ((setIsOpen: (open: boolean) => void) => ReactNode) | ReactNode;
-  onOpenChange?: (open: boolean) => void;
-  triggerClassName?: string;
-};
+import { ModalProps } from "@/lib/types";
 
 export default function Modal({
   trigger,

@@ -2,12 +2,7 @@ import Link from "next/link";
 import * as motion from "motion/react-client";
 import { setImageQuality } from "@/utils/utils";
 import { IMAGE_QUALITY } from "@/lib/consts";
-
-interface MembershipCardProps {
-  image: string;
-  sportName: string;
-  href: number;
-}
+import { MembershipCardProps } from "@/lib/types";
 
 export default function MembershipCard({
   image,

@@ -1,5 +1,6 @@
 "use client";
 
+import { AdminImagePickerProps } from "@/lib/types";
 import { Download } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
@@ -11,14 +12,7 @@ export default function AdminImagePicker({
   initialSrc,
   onChange,
   required,
-}: {
-  id: string;
-  label: string;
-  file: File | null;
-  initialSrc?: string;
-  onChange: (file: File | null) => void;
-  required?: boolean;
-}) {
+}: AdminImagePickerProps) {
   const [objectUrl, setObjectUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -56,7 +50,7 @@ export default function AdminImagePicker({
 
       <label
         htmlFor={id}
-        className="bg-black/30 border border-white/10 rounded-lg px-4 py-3 text-white/50 text-right cursor-pointer hover:bg-black/40 transition flex items-center justify-between"
+        className="flex cursor-pointer items-center justify-between rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white/50 transition hover:bg-black/40"
       >
         {file ? "تغيير الصورة" : "اختر صورة"}
         <Download className="size-4" />
@@ -64,14 +58,14 @@ export default function AdminImagePicker({
 
       {previewSrc ? (
         <Image
-          className="w-full border-white/25 border rounded-md mt-1 object-top"
+          className="mt-1 w-full rounded-md border border-white/25 object-top"
           src={previewSrc}
           alt="uploaded image"
           width={500}
           height={500}
         />
       ) : (
-        <div className="w-full h-75 rounded-md border border-white/25" />
+        <div className="h-75 w-full rounded-md border border-white/25" />
       )}
     </div>
   );

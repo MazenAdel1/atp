@@ -1,11 +1,9 @@
+import { ReactNode } from "react";
+
 export type VideoProps = {
   id: string;
   reelId: string | null;
   reelUrl: string;
-};
-
-export type VideoModalProps = {
-  video: VideoProps;
 };
 
 export type PartnerProps = {
@@ -16,19 +14,11 @@ export type PartnerProps = {
   links: string[];
 };
 
-export type PartnerModalProps = {
-  partner: PartnerProps;
-};
-
 export type CoachProps = {
   id: number;
   image: string;
   name: string;
   game?: SportProps[];
-};
-
-export type CoachModalProps = {
-  coach: CoachProps;
 };
 
 export type SportProps = {
@@ -37,10 +27,6 @@ export type SportProps = {
   name: string;
   description: string;
   packages?: MembershipProps[];
-};
-
-export type SportModalProps = {
-  sport: SportProps;
 };
 
 export type MembershipProps = {
@@ -55,6 +41,44 @@ export type MembershipProps = {
   game?: SportProps;
 };
 
-export type MembershipModalProps = {
-  membership: MembershipProps;
+export type MembershipCardProps = {
+  image: string;
+  sportName: string;
+  href: number;
+};
+
+export type ModalProps = {
+  trigger?: ReactNode;
+  content: ((setIsOpen: (open: boolean) => void) => ReactNode) | ReactNode;
+  onOpenChange?: (open: boolean) => void;
+  triggerClassName?: string;
+};
+
+export type AdminImagePickerProps = {
+  id: string;
+  label: string;
+  file: File | null;
+  initialSrc?: string;
+  onChange: (file: File | null) => void;
+  required?: boolean;
+};
+
+export type AdminPageShellProps = {
+  title: string;
+  action?: ReactNode;
+  children: ReactNode;
+  wideGrid?: boolean;
+};
+
+export type FormModalProps = {
+  mode: "add" | "edit";
+  endpoint: string;
+  queryKey: string;
+  title: string;
+  triggerLabel: string;
+  submitLabel?: string;
+  children: ReactNode;
+  disabled?: boolean;
+  onTransformFormData?: (formData: FormData) => false | void;
+  onSuccess?: () => void;
 };

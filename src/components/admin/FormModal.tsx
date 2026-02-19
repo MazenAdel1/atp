@@ -1,23 +1,10 @@
 "use client";
 
-import { ReactNode } from "react";
 import Modal from "./Modal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import { Edit, Loader2, Plus } from "lucide-react";
-
-type FormModalProps = {
-  mode: "add" | "edit";
-  endpoint: string;
-  queryKey: string;
-  title: string;
-  triggerLabel: string;
-  submitLabel?: string;
-  children: ReactNode;
-  disabled?: boolean;
-  onTransformFormData?: (formData: FormData) => false | void;
-  onSuccess?: () => void;
-};
+import { FormModalProps } from "@/lib/types";
 
 export default function FormModal({
   mode,

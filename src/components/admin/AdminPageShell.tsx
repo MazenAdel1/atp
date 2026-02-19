@@ -1,17 +1,12 @@
+import { AdminPageShellProps } from "@/lib/types";
 import { cn } from "@/utils/cn";
-import { ReactNode } from "react";
 
 export default function AdminPageShell({
   title,
   action,
   children,
   wideGrid = false,
-}: {
-  title: string;
-  action?: ReactNode;
-  children: ReactNode;
-  wideGrid?: boolean;
-}) {
+}: AdminPageShellProps) {
   return (
     <main className="container py-5">
       <section className="flex items-center justify-between">
