@@ -5,3 +5,5 @@ export const LINKS_LIST = [
   { href: "/#coaches", label: "المدربين" },
   { href: "/#address", label: "العنوان" },
 ];
+
+export const IMAGE_QUALITY = 30;

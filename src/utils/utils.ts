@@ -23,3 +23,12 @@ export const handleInputChange = (
     [inputId]: inputValue,
   }));
 };
+
+export const setImageQuality = (url: string, quality: number) => {
+  if (quality < 1 || quality > 100) {
+    throw new Error("Quality must be between 1 and 100");
+  }
+
+  const [prefix, suffix] = url.split("/upload/");
+  return `${prefix}/upload/q_${quality}/${suffix}`;
+};

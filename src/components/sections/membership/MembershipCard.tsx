@@ -1,5 +1,7 @@
 import Link from "next/link";
 import * as motion from "motion/react-client";
+import { setImageQuality } from "@/utils/utils";
+import { IMAGE_QUALITY } from "@/lib/consts";
 
 interface MembershipCardProps {
   image: string;
@@ -12,6 +14,8 @@ export default function MembershipCard({
   sportName,
   href,
 }: MembershipCardProps) {
+  const lowQualityImage = setImageQuality(image, IMAGE_QUALITY);
+
   return (
     <motion.div
       variants={{
@@ -24,7 +28,7 @@ export default function MembershipCard({
         <div className="group size-full overflow-hidden backface-hidden">
           <div
             className="relative size-full bg-size-[150%] bg-center transition-all duration-300 hover:bg-size-[160%]"
-            style={{ backgroundImage: `url(${image})` }}
+            style={{ backgroundImage: `url(${lowQualityImage})` }}
           >
             <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
             <div className="absolute right-0 bottom-0 left-0 p-6 text-right">
