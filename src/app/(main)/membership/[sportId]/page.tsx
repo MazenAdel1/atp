@@ -48,7 +48,7 @@ export default async function page({
   );
 
   return (
-    <main className="container py-10">
+    <main className="container">
       <Image
         src={sport.image}
         alt={sport?.description as string}
