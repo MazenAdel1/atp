@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function LightningBoltAnimated({
   className = "",
   width = 80,
