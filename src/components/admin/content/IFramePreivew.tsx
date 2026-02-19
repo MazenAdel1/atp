@@ -1,20 +1,23 @@
+import { VideoProps } from "@/lib/types";
 import { getReelId } from "@/utils/utils";
 import { useState } from "react";
 
-export default function IframePreview({ reelUrl }: { reelUrl: string }) {
+export default function IframePreview({
+  reelUrl,
+}: {
+  reelUrl: VideoProps["reelUrl"];
+}) {
   const [isInteracting, setIsInteracting] = useState(false);
 
   return (
     <div
-      className="relative w-fit mx-auto"
+      className="relative mx-auto w-fit"
       onMouseEnter={() => setIsInteracting(true)}
       onMouseLeave={() => setIsInteracting(false)}
       onClick={() => setIsInteracting(true)}
     >
       <iframe
-        src={`https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F${getReelId(
-          reelUrl
-        )}%2F&show_text=false&width=267&t=0`}
+        src={`https://www.facebook.com/plugins/video.php?height=476&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F${getReelId(reelUrl)}%2F&show_text=false&width=267&t=0`}
         width="267"
         height="476"
         style={{
