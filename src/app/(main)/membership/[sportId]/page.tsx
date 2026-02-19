@@ -1,5 +1,6 @@
 import api from "@/lib/axios";
 import { MembershipProps, SportProps } from "@/lib/types";
+import { setImageQuality } from "@/utils/utils";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
@@ -50,7 +51,7 @@ export default async function page({
   return (
     <main className="container">
       <Image
-        src={sport.image}
+        src={setImageQuality(sport.image, 50)}
         alt={sport?.description as string}
         width={2000}
         height={500}
