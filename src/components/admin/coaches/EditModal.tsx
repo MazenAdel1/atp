@@ -3,12 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import AdminImagePicker from "../AdminImagePicker";
 import FormModal from "../FormModal";
-import { CoachModalProps, SportProps } from "@/lib/types";
+import { CoachProps, SportProps } from "@/lib/types";
 
-export default function EditModal({ coach }: CoachModalProps) {
+export default function EditModal({ id, name, image, game }: CoachProps) {
   const [editImage, setEditImage] = useState<File | null>(null);
   const [selectedGames, setSelectedGames] = useState<number[]>(
-    coach.game?.map((g) => g.id) ?? [],
+    game?.map((g) => g.id) ?? [],
   );
 
   const { data: sports } = useQuery({
@@ -30,7 +30,7 @@ export default function EditModal({ coach }: CoachModalProps) {
   return (
     <FormModal
       mode="edit"
-      endpoint={`/coach/${coach.id}`}
+      endpoint={`/coach/${id}`}
       queryKey="coaches"
       title="تعديل المدرب"
       triggerLabel="تعديل"
@@ -53,7 +53,7 @@ export default function EditModal({ coach }: CoachModalProps) {
           type="text"
           id="name"
           name="name"
-          defaultValue={coach.name}
+          defaultValue={name}
           className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
           autoFocus
         />
@@ -92,7 +92,7 @@ export default function EditModal({ coach }: CoachModalProps) {
         id="editCoachImg"
         label="صورة المدرب"
         file={editImage}
-        initialSrc={coach.image}
+        initialSrc={image}
         onChange={setEditImage}
       />
     </FormModal>

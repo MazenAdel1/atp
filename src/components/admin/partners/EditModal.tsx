@@ -1,15 +1,21 @@
 import { useState } from "react";
 import AdminImagePicker from "../AdminImagePicker";
 import FormModal from "../FormModal";
-import { PartnerModalProps } from "@/lib/types";
+import { PartnerProps } from "@/lib/types";
 
-export default function EditModal({ partner }: PartnerModalProps) {
+export default function EditModal({
+  id,
+  name,
+  description,
+  links,
+  image,
+}: PartnerProps) {
   const [editImage, setEditImage] = useState<File | null>(null);
 
   return (
     <FormModal
       mode="edit"
-      endpoint={`/partner/${partner.id}`}
+      endpoint={`/partner/${id}`}
       queryKey="partners"
       title="تعديل الشريك"
       triggerLabel="تعديل"
@@ -29,7 +35,7 @@ export default function EditModal({ partner }: PartnerModalProps) {
           id="name"
           name="name"
           placeholder="اسم الشريك"
-          defaultValue={partner.name}
+          defaultValue={name}
           className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
           required
           autoFocus
@@ -45,7 +51,7 @@ export default function EditModal({ partner }: PartnerModalProps) {
           id="description"
           name="description"
           placeholder="وصف الشريك"
-          defaultValue={partner.description}
+          defaultValue={description}
           className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
           required
         />
@@ -62,7 +68,7 @@ export default function EditModal({ partner }: PartnerModalProps) {
           type="url"
           id="links"
           name="links[]"
-          defaultValue={partner.links}
+          defaultValue={links}
           placeholder="رابط الشريك"
           className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
           required
@@ -73,7 +79,7 @@ export default function EditModal({ partner }: PartnerModalProps) {
         id="editPartnerImg"
         label="صورة الشريك"
         file={editImage}
-        initialSrc={partner.image}
+        initialSrc={image}
         onChange={setEditImage}
       />
     </FormModal>

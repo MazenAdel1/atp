@@ -1,9 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
 import api from "@/lib/axios";
 import FormModal from "../FormModal";
-import { MembershipModalProps, SportProps } from "@/lib/types";
+import { MembershipProps, SportProps } from "@/lib/types";
 
-export default function EditModal({ membership }: MembershipModalProps) {
+export default function EditModal({
+  id,
+  name,
+  description,
+  price,
+  sessions_count,
+  gender,
+  game_id,
+}: MembershipProps) {
   const { data: sports } = useQuery({
     queryKey: ["sports"],
     queryFn: async () => {
@@ -15,7 +23,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
   return (
     <FormModal
       mode="edit"
-      endpoint={`/package/${membership.id}`}
+      endpoint={`/package/${id}`}
       queryKey="memberships"
       title="تعديل الاشتراك"
       triggerLabel="تعديل"
@@ -29,7 +37,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
           id="name"
           name="name"
           placeholder="اسم الاشتراك"
-          defaultValue={membership.name}
+          defaultValue={name}
           className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
           required
           autoFocus
@@ -45,7 +53,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
           name="description"
           rows={3}
           placeholder="وصف الاشتراك"
-          defaultValue={membership.description}
+          defaultValue={description}
           className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
           required
         />
@@ -60,7 +68,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
           id="price"
           name="price"
           placeholder="السعر"
-          defaultValue={membership.price}
+          defaultValue={price}
           min={0}
           step={0.01}
           className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
@@ -77,7 +85,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
           id="sessions_count"
           name="sessions_count"
           placeholder="عدد الحصص"
-          defaultValue={membership.sessions_count}
+          defaultValue={sessions_count}
           min={1}
           className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
           required
@@ -91,7 +99,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
         <select
           id="gender"
           name="gender"
-          defaultValue={membership.gender}
+          defaultValue={gender}
           className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
           required
         >
@@ -108,7 +116,7 @@ export default function EditModal({ membership }: MembershipModalProps) {
         <select
           id="game_id"
           name="game_id"
-          defaultValue={membership.game_id}
+          defaultValue={game_id}
           className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
           required
         >

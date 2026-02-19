@@ -30,7 +30,7 @@ export default function CoachCard({ coach }: { coach: CoachProps }) {
           )}
         </div>
         <div className="flex items-center gap-2 *:flex *:w-full *:items-center *:justify-center *:gap-2 *:rounded-sm *:border *:py-1">
-          <EditModal coach={coach} />
+          <EditModal {...coach} />
           <DeleteModal
             endpoint={`/coach/${coach.id}`}
             queryKey="coaches"

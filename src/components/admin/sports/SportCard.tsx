@@ -19,7 +19,7 @@ export default function SportCard({ sport }: { sport: SportProps }) {
           <p className="text-sm text-white/70">{sport.description}</p>
         </div>
         <div className="flex items-center gap-2 *:flex *:w-full *:items-center *:justify-center *:gap-2 *:rounded-sm *:border *:py-1">
-          <EditModal sport={sport} />
+          <EditModal {...sport} />
           <DeleteModal
             endpoint={`/game/${sport.id}`}
             queryKey="sports"

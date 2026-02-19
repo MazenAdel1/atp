@@ -38,7 +38,7 @@ export default function MembershipCard({
           </div>
         </div>
         <div className="flex items-center gap-2 *:flex *:w-full *:items-center *:justify-center *:gap-2 *:rounded-sm *:border *:py-1">
-          <EditModal membership={membership} />
+          <EditModal {...membership} />
           <DeleteModal
             endpoint={`/package/${membership.id}`}
             queryKey="memberships"

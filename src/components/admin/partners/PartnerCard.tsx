@@ -28,7 +28,7 @@ export default function PartnerCard({ partner }: { partner: PartnerProps }) {
           </Link>
         </div>
         <div className="flex items-center gap-2 *:flex *:w-full *:items-center *:justify-center *:gap-2 *:rounded-sm *:border *:py-1">
-          <EditModal partner={partner} />
+          <EditModal {...partner} />
           <DeleteModal
             endpoint={`/partner/${partner.id}`}
             queryKey="partners"

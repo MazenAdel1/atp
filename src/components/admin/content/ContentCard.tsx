@@ -22,7 +22,7 @@ export default function ContentCard({ video }: { video: VideoProps }) {
           </Link>
         </div>
         <div className="flex items-center gap-2 *:flex *:w-full *:items-center *:justify-center *:gap-2 *:rounded-sm *:border *:py-1">
-          <EditModal video={video} />
+          <EditModal {...video} />
           <DeleteModal
             endpoint={`/content/${video.id}`}
             queryKey="videos"
