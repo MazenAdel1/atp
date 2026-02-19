@@ -11,8 +11,8 @@ export default function DesktopHeader({
     <motion.header
       animate={{
         y: isScrolled ? "0.75rem" : "0rem",
-        backgroundColor: isScrolled ? "transparent" : "#000000",
-        borderColor: isScrolled ? "transparent" : "rgb(75 85 99)",
+        backgroundColor: isScrolled ? "rgba(0 0 0, 0)" : "rgba(0 0 0, 1)",
+        borderColor: isScrolled ? "rgba(75 85 99, 0)" : "rgba(75 85 99, 1)",
       }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="fixed right-0 left-0 z-50 hidden h-19 items-center border-b md:flex"
@@ -22,7 +22,7 @@ export default function DesktopHeader({
           borderRadius: isScrolled ? "9999px" : "0px",
           backgroundColor: isScrolled
             ? "rgba(255, 193, 7, 0.2)"
-            : "transparent",
+            : "rgba(255, 193, 7, 0)",
           backdropFilter: isScrolled ? "blur(16px)" : "blur(0px)",
           borderWidth: isScrolled ? "0px" : "0px",
         }}
