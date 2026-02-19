@@ -45,7 +45,7 @@ export default async function Partners() {
                     visible: { opacity: 1, y: 0 },
                   }}
                 >
-                  <PartnerCard partner={partner} />
+                  <PartnerCard {...partner} />
                 </motion.li>
               );
             })}
