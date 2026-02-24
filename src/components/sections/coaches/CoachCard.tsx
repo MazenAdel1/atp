@@ -1,15 +1,19 @@
 import { IMAGE_QUALITY } from "@/lib/consts";
 import { CoachProps } from "@/lib/types";
 import { setImageQuality } from "@/utils/utils";
+import Image from "next/image";
 
 export default function CoachCard({ image, name, game }: CoachProps) {
   const lowQualityImage = setImageQuality(image, IMAGE_QUALITY);
 
   return (
     <div className="group relative aspect-3/4 overflow-hidden shadow-lg">
-      <div
-        className="absolute inset-0 bg-cover bg-center transition-all duration-300 group-hover:scale-105"
-        style={{ backgroundImage: `url(${lowQualityImage})` }}
+      <Image
+        src={lowQualityImage}
+        alt={`Coach ${name}'s picture`}
+        className="absolute w-full transition-all duration-300 group-hover:scale-105"
+        width={200}
+        height={200}
       />
 
       <div className="absolute bottom-0 h-1/2 w-full bg-linear-to-t from-black via-black/10 to-transparent" />
