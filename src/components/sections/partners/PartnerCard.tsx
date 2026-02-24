@@ -24,8 +24,8 @@ export default function PartnerCard({
       <Image
         src={lowQualityImage}
         alt={name}
-        width={500}
-        height={500}
+        width={400}
+        height={400}
         className="size-full object-cover"
       />
     </div>
