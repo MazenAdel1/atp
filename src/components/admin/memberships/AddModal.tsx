@@ -1,17 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
-import api from "@/lib/axios";
 import FormModal from "../FormModal";
-import { SportProps } from "@/lib/types";
 
 export default function AddModal({ sportId }: { sportId: number }) {
-  const { data: sports } = useQuery({
-    queryKey: ["sports"],
-    queryFn: async () => {
-      const { data } = await api.get(`/game`);
-      return data.data as SportProps[];
-    },
-  });
-
   return (
     <FormModal
       mode="add"
@@ -19,6 +8,9 @@ export default function AddModal({ sportId }: { sportId: number }) {
       queryKey="memberships"
       title="إضافة اشتراك جديد"
       triggerLabel="إضافة اشتراك"
+      onTransformFormData={(formData) => {
+        formData.append("game_id", sportId.toString());
+      }}
     >
       <div className="flex flex-col gap-1">
         <label htmlFor="name" className="text-white/85">
@@ -93,27 +85,6 @@ export default function AddModal({ sportId }: { sportId: number }) {
           <option value="">اختر الجنس</option>
           <option value="male">رجال</option>
           <option value="female">نساء</option>
-        </select>
-      </div>
-
-      <div className="flex flex-col gap-1">
-        <label htmlFor="game_id" className="text-white/85">
-          الرياضة
-        </label>
-        <select
-          id="game_id"
-          name="game_id"
-          className="focus:border-yellow w-full rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-right text-white focus:outline-none"
-          required
-          value={sportId}
-          onChange={() => {}}
-        >
-          <option value="">اختر الرياضة</option>
-          {sports?.map((sport) => (
-            <option key={sport.id} value={sport.id}>
-              {sport.name}
-            </option>
-          ))}
         </select>
       </div>
     </FormModal>
