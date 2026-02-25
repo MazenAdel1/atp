@@ -15,12 +15,18 @@ export default function Landing() {
             <LightningBoltAnimated />
           </span>{" "}
         </h1>
-        <p className="animate-fade-up text-lg font-light text-white/80 md:text-2xl">
+        <p
+          style={{ animationDelay: "0.2s" }}
+          className="animate-fade-up text-lg font-light text-white/80 md:text-2xl"
+        >
           استمتع برفاهية لا مثيل لها، ومعدات متطورة، وإرشادات الخبراء في رحلتك
           نحو قمة التميز البدني.
         </p>
       </div>
-      <div className="animate-fade-up flex justify-center">
+      <div
+        style={{ animationDelay: "0.4s" }}
+        className="animate-fade-up flex justify-center"
+      >
         <Link
           href={"/#membership"}
           className="bg-yellow hover:text-yellow hover:ring-yellow min-w-40 py-2 font-medium text-black transition hover:bg-transparent hover:ring"
