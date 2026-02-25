@@ -20,7 +20,7 @@ export default function Page() {
           id: id,
           reelId: getReelId(url),
           reelUrl: url,
-        })
+        }),
       );
       return dataObj;
     },
@@ -30,7 +30,7 @@ export default function Page() {
     <>
       <AdminPageShell title="إدارة المحتوى" action={<AddModal />}>
         {isPending ? (
-          <Loader2 className="animate-spin size-8" />
+          <Loader2 className="size-8 animate-spin" />
         ) : data && data.length > 0 ? (
           data.map((video) => <ContentCard key={video.id} video={video} />)
         ) : (
