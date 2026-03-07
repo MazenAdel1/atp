@@ -27,8 +27,9 @@ export default async function page({
     notFound();
   }
 
-  const groupedData = Object.groupBy(sport.packages || [], ({ gender }) =>
-    gender === "male" ? "male" : "female",
+  const groupedData = Object.groupBy(
+    sport.packages || [],
+    ({ gender }) => gender,
   );
 
   return (

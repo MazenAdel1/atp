@@ -36,7 +36,7 @@ export type MembershipProps = {
   description: string;
   price: number;
   sessions_count: number;
-  gender: "male" | "female" | "both";
+  gender: "male" | "female";
   game_id: number;
   game?: SportProps;
 };
